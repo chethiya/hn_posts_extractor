@@ -3,7 +3,7 @@ fs = require("fs")
 jquery = fs.readFileSync("./jquery.js", "utf-8")
 
 MORE_HREF = '\/x?fnid='
-nextUrl = "/newest"
+nextUrl = '/x?fnid=vX3PX8DtnP8o25bmASKTfm' #'/news'
 cnt = 0
 errCnt = 0
 
@@ -15,6 +15,7 @@ check = ->
 setInterval check, 5000
 
 loadPage = (url) ->
+ url = '' if not url?
  time = new Date().getTime()
  jsdom.env
    url: "http://news.ycombinator.com#{url}",
@@ -51,7 +52,10 @@ loadPage = (url) ->
         arr2 = a.text().split(' ')
         for v, i in arr2
          if v is 'comment' or v is 'comments'
-          d.comments_count = parseInt arr2[i-1]
+          if i is 0
+           d.comments_count = -1
+          else
+           d.comments_count = parseInt arr2[i-1]
        arr = text.split(' ')
        for v,i in arr
         if v is 'point' or v is 'points' and i > 0
