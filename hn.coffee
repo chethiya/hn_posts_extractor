@@ -35,7 +35,8 @@ loadPosts = (url) ->
         console.error "Total count: #{cnt}"
         console.error "Total error: #{errCnt}"
         console.error "next url: #{nextUrl}"
-        return
+        window.close()
+        return false
 
        err = false
        d =
@@ -183,6 +184,7 @@ loadComments = (parentId, url, callback) ->
 
        if index is list.length-1
         callback res
+        window.close()
         return false
 
 
