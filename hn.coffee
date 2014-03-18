@@ -17,17 +17,29 @@ setTimeout check, 10
 setInterval check, 3000
 
 loadPosts = (url) ->
- child_process.execFile 'coffee', ['./child.coffee', cnt, errCnt, cCnt, cErrCnt, url], {}, (err, stdout, stderr) ->
-  console.log stdout
-  arr = stderr.split '\n'
-  n = arr.length
-  last = arr[n-1]
-  last = arr[n-2] if last is ''
-  nums = last.split ' '
-  cnt = parseInt nums[0]
-  errCnt = parseInt nums[1]
-  cCnt = parseInt nums[2]
-  cErrCnt = parseInt nums[3]
-  nextUrl = nums[4]
+ process = child_process.execFile(
+   'coffee'
+   ['./child.coffee', cnt, errCnt, cCnt, cErrCnt, url]
+   maxBuffer: 100*1024*1024
+   (err, stdout, stderr) ->
+    console.error "Process error: ", err
 
-  console.error line for line in arr
+    arr = stderr.split '\n'
+    n = arr.length
+    last = arr[n-1]
+    last = arr[n-2] if last is ''
+    nums = last.split ' '
+    cnt = parseInt nums[0]
+    errCnt = parseInt nums[1]
+    cCnt = parseInt nums[2]
+    cErrCnt = parseInt nums[3]
+    nextUrl = nums[4]
+ )
+
+ process.stdout.on 'data', (data) ->
+  data = data.substr 0, data.length-1 if data[data.length-1] is '\n'
+  console.log data
+
+ process.stderr.on 'data', (data) ->
+  data = data.substr 0, data.length-1 if data[data.length-1] is '\n'
+  console.error data
