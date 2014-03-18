@@ -39,9 +39,8 @@ loadPosts = (url) ->
  )
 
  p.stdout.on 'data', (data) ->
-  data = data.substr 0, data.length-1 if data[data.length-1] is '\n'
-  console.log data
+  process.stdout.write data
 
  p.stderr.on 'data', (data) ->
   data = data.substr 0, data.length-1 if data[data.length-1] is '\n'
-  console.error data
+  process.stderr.write data
