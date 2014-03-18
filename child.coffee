@@ -17,7 +17,7 @@ loadPosts = (url) ->
    src: [jquery],
    done: (errors, window) ->
      if errors?
-      console.error 'post page error: ', url, errors
+      console.error "#{new Date()}: post page error: ", url, errors
       setTimeout loadPosts, 5000, url
       return
 
@@ -27,10 +27,10 @@ loadPosts = (url) ->
      each = (ind) ->
        if ind is list.length
         url = 'No'
-        console.error "Total count: #{cnt}"
-        console.error "Total error: #{errCnt}"
-        console.error "next url: #{url}"
-        console.error "#{cnt} #{errCnt} #{cCnt} #{cErrCnt} #{url}"
+        console.error "#{new Date()}: Total count: #{cnt}"
+        console.error "#{new Date()}: Total error: #{errCnt}"
+        console.error "#{new Date()}: next url: #{url}"
+        console.error "#{new Date()}: #{cnt} #{errCnt} #{cCnt} #{cErrCnt} #{url}"
         window.close()
         return false
 
@@ -38,9 +38,9 @@ loadPosts = (url) ->
        if typeof href is 'string' and (MORE_HREF is href.substr(0, MORE_HREF.length) or href is '/news2' or href is 'news2')
         href = '/' + href if href[0] isnt '/'
         url = href
-        console.error "Total count: #{cnt}"
-        console.error "Total error: #{errCnt}"
-        console.error "next url: #{url}"
+        console.error "#{new Date()}: Total count: #{cnt}"
+        console.error "#{new Date()}: Total error: #{errCnt}"
+        console.error "#{new Date()}: next url: #{url}"
         console.error "#{cnt} #{errCnt} #{cCnt} #{cErrCnt} #{url}"
         window.close()
         return false
@@ -102,8 +102,8 @@ loadPosts = (url) ->
          cCnt += res.cnt
          cErrCnt += res.errCnt
 
-         console.error "Total Comments count: #{cCnt}"
-         console.error "Total Comments error: #{cErrCnt}"
+         console.error "#{new Date()}: Total Comments count: #{cCnt}"
+         console.error "#{new Date()}: Total Comments error: #{cErrCnt}"
 
          console.log ','
          console.log JSON.stringify d
@@ -119,7 +119,7 @@ loadPosts = (url) ->
         else
          setTimeout comments, 1000
        else
-        console.error d
+        console.error "#{new Date()}: ", d
         errCnt++
         cnt++
         each ind + 1
@@ -139,7 +139,7 @@ loadComments = (parentId, url, callback) ->
    src: [jquery],
    done: (errors, window) ->
      if errors?
-      console.error 'comment page error: ', url, errors
+      console.error "#{new Date()}: comment page error: ", url, errors
       setTimeout loadComments, 5000, parentId, url, callback
       return
 
@@ -191,7 +191,7 @@ loadComments = (parentId, url, callback) ->
         console.log ','
         console.log JSON.stringify d
        else
-        console.error d
+        console.error "#{new Date()}: ", d
         res.errCnt++
        res.cnt++
 

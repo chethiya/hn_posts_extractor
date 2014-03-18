@@ -42,5 +42,4 @@ loadPosts = (url) ->
   process.stdout.write data
 
  p.stderr.on 'data', (data) ->
-  data = data.substr 0, data.length-1 if data[data.length-1] is '\n'
   process.stderr.write data
