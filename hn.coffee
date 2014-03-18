@@ -17,7 +17,7 @@ setTimeout check, 10
 setInterval check, 3000
 
 loadPosts = (url) ->
- process = child_process.execFile(
+ p = child_process.execFile(
    'coffee'
    ['./child.coffee', cnt, errCnt, cCnt, cErrCnt, url]
    maxBuffer: 100*1024*1024
@@ -34,12 +34,14 @@ loadPosts = (url) ->
     cCnt = parseInt nums[2]
     cErrCnt = parseInt nums[3]
     nextUrl = nums[4]
+    if nextUrl is 'No'
+     process.exit 0
  )
 
- process.stdout.on 'data', (data) ->
+ p.stdout.on 'data', (data) ->
   data = data.substr 0, data.length-1 if data[data.length-1] is '\n'
   console.log data
 
- process.stderr.on 'data', (data) ->
+ p.stderr.on 'data', (data) ->
   data = data.substr 0, data.length-1 if data[data.length-1] is '\n'
   console.error data
