@@ -3,7 +3,8 @@ fs = require("fs")
 jquery = fs.readFileSync("./jquery.js", "utf-8")
 
 MORE_HREF = '\/x?fnid='
-nextUrl = '/x?fnid=vX3PX8DtnP8o25bmASKTfm' #'/news'
+nextUrl = process.argv[2] #'/news'
+
 cnt = 0
 errCnt = 0
 
@@ -15,7 +16,7 @@ check = ->
 setInterval check, 5000
 
 loadPage = (url) ->
- url = '' if not url?
+ url = '/news' if not url?
  time = new Date().getTime()
  jsdom.env
    url: "http://news.ycombinator.com#{url}",
