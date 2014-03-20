@@ -16,6 +16,7 @@ check = ->
 setTimeout check, 10
 setInterval check, 3000
 
+console.log "[#{JSON.stringify {}}"
 loadPosts = (url) ->
  p = child_process.execFile(
    'coffee'
@@ -34,7 +35,10 @@ loadPosts = (url) ->
     cCnt = parseInt nums[2]
     cErrCnt = parseInt nums[3]
     nextUrl = nums[4]
+    console.error "|#{nextUrl}|"
     if nextUrl is 'No'
+     nextUrl = ''
+     console.log "]"
      process.exit 0
  )
 
