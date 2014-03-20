@@ -18,16 +18,16 @@ load = (arr) ->
 
 
 print = ->
- all = [comments, posts]
+ all = []
+ all.push v for k, v of comments
+ all.push v for k, v of posts
  console.log JSON.stringify all
 
 files = fs.readdirSync DIR
-console.log files
 regex = new RegExp "^#{set}_.*json$"
 if files?
  files.sort()
  for file in files
-  console.log file
   path = "#{DIR}/#{file}"
   if regex.test file
    if (fs.lstatSync path)?.isFile()
@@ -35,6 +35,15 @@ if files?
     try
      data = fs.readFileSync path, 'utf8'
     if data?
+     i = data.length-1
+     while i>=0
+      if data[i] is '}'
+       data += ']'
+       break
+      else if data[i] is ']'
+       break
+      --i
+
      obj = JSON.parse data
      load obj
 print()
