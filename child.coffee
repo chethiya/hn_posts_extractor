@@ -30,7 +30,7 @@ loadPosts = (url) ->
         console.error "#{new Date()}: Total count: #{cnt}"
         console.error "#{new Date()}: Total error: #{errCnt}"
         console.error "#{new Date()}: next url: #{url}"
-        console.error "#{new Date()}: #{cnt} #{errCnt} #{cCnt} #{cErrCnt} #{url}"
+        console.error "#{cnt} #{errCnt} #{cCnt} #{cErrCnt} #{url}"
         window.close()
         return false
 
