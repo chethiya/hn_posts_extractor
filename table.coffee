@@ -9,6 +9,9 @@ for obj in arr
  else
   posts.push obj
 
+console.log "Comments: #{comments.length}"
+console.log "Posts: #{posts.length}"
+
 post_props = ['id', 'time', 'points', 'comments_count', 'username', 'title']
 comment_props = ['id', 'parentId', 'time', 'username', 'comment']
 
